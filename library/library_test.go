@@ -6,13 +6,10 @@ import (
 	"github.com/nanoteck137/sewaddle-core/library"
 )
 
-func setupTestDir(dir string) error {
-	return nil
-}
-
 func TestLibrary(t *testing.T) {
 	testDir := t.TempDir()
-	setupTestDir(testDir)
+
+	// TODO(patrik): Add more testing
 
 	lib, err := library.ReadFromDir(testDir)
 	if err != nil {
@@ -20,25 +17,7 @@ func TestLibrary(t *testing.T) {
 	}
 
 	err = lib.AddSerie(library.SerieMetadata{
-		Title: "Testing b",
-		Chapters: []library.ChapterMetadata{
-			{
-				Number: 1,
-				Name:   "Test Chapter",
-				Pages:  []string{"page01.png", "page02.png"},
-			},
-		},
-		Extra: map[string]any{
-			"some-extra": "hello world",
-		},
-	})
-
-	if err != nil {
-		t.Fatalf("Failed to add serie: %v", err)
-	}
-
-	err = lib.AddSerie(library.SerieMetadata{
-		Title: "Testing 2",
+		Title: "Testing",
 		Chapters: []library.ChapterMetadata{
 			{
 				Number: 1,

@@ -3,9 +3,9 @@ package library
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 	"path"
+	"path/filepath"
 
 	"github.com/flytam/filenamify"
 )
@@ -24,8 +24,7 @@ func ReadFromDir(dir string) (*Library, error) {
 	var series []SerieMetadata
 
 	for _, entry := range entries {
-		// Skip over files and folders starting with a dot
-		if entry.Name()[0] == '.' {
+		if !entry.IsDir() {
 			continue
 		}
 
@@ -33,7 +32,10 @@ func ReadFromDir(dir string) (*Library, error) {
 
 		data, err := os.ReadFile(path.Join(p, "manga.json"))
 		if err != nil {
-			log.Printf("Warning: '%v' has no manga.json", p)
+			if os.IsNotExist(err) {
+				continue
+			}
+
 			return nil, err
 		}
 

@@ -6,6 +6,7 @@ import (
 	"path"
 
 	"github.com/gosimple/slug"
+	"github.com/pelletier/go-toml/v2"
 )
 
 type Library struct {
@@ -28,7 +29,7 @@ func ReadFromDir(dir string) (*Library, error) {
 
 		p := path.Join(dir, entry.Name())
 
-		data, err := os.ReadFile(path.Join(p, "manga.json"))
+		data, err := os.ReadFile(path.Join(p, "manga.toml"))
 		if err != nil {
 			if os.IsNotExist(err) {
 				continue
@@ -38,7 +39,7 @@ func ReadFromDir(dir string) (*Library, error) {
 		}
 
 		var metadata SerieMetadata
-		err = json.Unmarshal(data, &metadata)
+		err = toml.Unmarshal(data, &metadata)
 		if err != nil {
 			return nil, err
 		}

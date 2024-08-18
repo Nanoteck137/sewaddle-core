@@ -1,15 +1,16 @@
 package library
 
 type ChapterMetadata struct {
-	Slug  string   `json:"slug"`
-	Name  string   `json:"name"`
-	Pages []string `json:"pages"`
+	Slug  string   `toml:"slug"`
+	Name  string   `toml:"name"`
+	Pages []string `toml:"pages"`
 }
 
 type SerieMetadata struct {
-	Title    string            `json:"title"`
-	CoverArt string            `json:"coverArt"`
-	Chapters []ChapterMetadata `json:"chapters"`
+	Slug     string            `toml:"slug"`
+	Title    string            `toml:"title"`
+	CoverArt string            `toml:"coverArt"`
+	Chapters []ChapterMetadata `toml:"chapters"`
 
 	path    string
 	new     bool
